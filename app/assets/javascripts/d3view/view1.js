@@ -44,7 +44,7 @@ function position() {
 }
 
 
-function show_d3(){
+function show_d3(val_year,val_type,val_name){
     var div = d3.select("#d3graph").append("div")
     .style("position", "relative")
     .style("width", (width + margin.left + margin.right) + "px")
@@ -53,10 +53,10 @@ function show_d3(){
     .style("top", margin.top + "px");
 
 
-	d3.json("/fake_json/view1.json", function(error, root) {
+	d3.json("/json/"+val_year+"/"+val_type+"/"+val_name, function(error, root) {
 	  var node = div.datum(root).selectAll(".node")
 	      .data(treemap.nodes)
-	    .enter().append("div")
+          .enter().append("div")
 	      .attr("class", "node")
 	      .call(position)
 	      .style("background", function(d) { return d.children ? color(d.name) : null; })
