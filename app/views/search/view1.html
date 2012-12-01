@@ -1,0 +1,42 @@
+<html>
+<head>
+<style>
+
+.node {
+  border: solid 1px white;
+  font: 10px sans-serif;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+}
+.view1_size{
+	text-align: center;
+}
+
+</style>
+
+
+</head>
+<body>
+
+
+<input type="button" value="show" id="show_btn" />
+
+
+<script src="./js/jquery-1.8.3.min.js"></script>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script src="./view1.js"></script>
+
+<script>
+
+$(function(){
+	$('#show_btn').click(function(){show_d3();});
+});
+
+</script>
+
+</body>
+</html>

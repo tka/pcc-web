@@ -1,0 +1,23 @@
+
+  {
+   "name": "dataroot",
+   "children": [
+    {
+     "name": "廠商/單位",
+     "children": [
+      {"name": "A案", "size": 3938},
+      {"name": "B", "size": 3812},
+      {"name": "C", "size": 6714},
+      {"name": "D", "size": 743}
+     ]
+    },
+    {
+     "name": "廠商/單位",
+     "children": [
+      {"name": "E", "size": 3534},
+      {"name": "F", "size": 5731},
+      {"name": "G", "size": 7840}
+     ]
+    }
+   ]
+  }
