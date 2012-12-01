@@ -2,7 +2,7 @@ class SearchForm
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming
-  attr_accessor :name, :start_at, :end_at
+  attr_accessor :name, :year, :type
 
   def initialize(attributes = {})
     attributes.each do |name, value|
