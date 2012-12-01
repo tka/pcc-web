@@ -33,10 +33,25 @@ set :use_sudo, false
 
 namespace :deploy do
 
-  desc "Restart passenger process"
-  task :restart, :roles => [:web], :except => { :no_release => true } do
-    run "touch #{current_path}/tmp/restart.txt"
+  task :migrate do
+    run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake db:migrate"
   end
+
+  desc "Zero-downtime restart of Unicorn"
+  task :restart, :roles => [:web], :except => { :no_release => true } do
+    run "if [ -f /tmp/#{application}_unicorn.pid ] ; then kill -s HUP `cat /tmp/#{application}_unicorn.pid`; fi"
+  end 
+
+  desc "Start unicorn"
+  task :start, :roles => [:web], :except => { :no_release => true } do
+    run "cd #{current_path} ; RAILS_ENV=#{rails_env} bundle exec unicorn_rails -c config/unicorn.conf -D"
+  end 
+
+  desc "Stop unicorn"
+  task :stop, :roles => [:web], :except => { :no_release => true } do
+    run "if [ -f /tmp/#{application}_unicorn.pid ] ; then  kill -s QUIT `cat /tmp/#{application}_unicorn.pid`; fi"
+  end  
+
 end
 
 
@@ -49,6 +64,7 @@ namespace :my_tasks do
       "#{shared_path}/config/database.yml"   => "#{release_path}/config/database.yml",
       "#{shared_path}/config/config.yml"   => "#{release_path}/config/config.yml",
       "#{shared_path}/config/action_mailer.yml"   => "#{release_path}/config/action_mailer.yml",
+      "#{shared_path}/config/unicorn.conf"   => "#{release_path}/config/unicorn.conf",
       "#{shared_path}/uploads"              => "#{release_path}/public/uploads",
     }
 
@@ -69,4 +85,5 @@ namespace :remote_rake do
 end
 
 after "deploy:finalize_update", "my_tasks:symlink"
+after 'deploy:finalize_update', 'deploy:cleanup'
 
