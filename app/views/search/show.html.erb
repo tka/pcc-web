@@ -4,3 +4,17 @@
     <%= f.input :end_at,   :label => '標案時間-結束', :input_html => {"data-toggle"=> "datepicker"}%>
     <%= f.submit%>
 <% end %>
+<div id="d3graph"></div>
+<% content_for :javascripts do %>
+<script>
+
+$(function(){
+    $('form').submit(function(){
+        show_d3();
+        return false;
+    });
+});
+
+</script>
+<% end %>
+

@@ -18,6 +18,15 @@
       {"name": "F", "size": 5731},
       {"name": "G", "size": 7840}
      ]
+    },
+    {
+     "name": "廠商/單位",
+     "children": [
+      {"name": "E", "size": 3534},
+      {"name": "F", "size": 5731},
+      {"name": "G", "size": 7840}
+     ]
     }
+
    ]
   }

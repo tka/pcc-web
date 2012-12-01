@@ -28,19 +28,12 @@ var margin = {top: 40, right: 10, bottom: 10, left: 10},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-var color = d3.scale.category20c();
+var color = d3.scale.category10();
 
 var treemap = d3.layout.treemap()
     .size([width, height])
     .sticky(true)
     .value(function(d) { return d.size; });
-
-var div = d3.select("body").append("div")
-    .style("position", "relative")
-    .style("width", (width + margin.left + margin.right) + "px")
-    .style("height", (height + margin.top + margin.bottom) + "px")
-    .style("left", margin.left + "px")
-    .style("top", margin.top + "px");
 
 
 function position() {
@@ -52,6 +45,14 @@ function position() {
 
 
 function show_d3(){
+    var div = d3.select("#d3graph").append("div")
+    .style("position", "relative")
+    .style("width", (width + margin.left + margin.right) + "px")
+    .style("height", (height + margin.top + margin.bottom) + "px")
+    .style("left", margin.left + "px")
+    .style("top", margin.top + "px");
+
+
 	d3.json("/fake_json/view1.json", function(error, root) {
 	  var node = div.datum(root).selectAll(".node")
 	      .data(treemap.nodes)
