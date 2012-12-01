@@ -1,8 +1,13 @@
+require "rvm/capistrano"    
+set :rvm_ruby_string, 'ruby-1.9.3'        # Or whatever env you want it to run in.
+require "bundler/capistrano"
+set :bundle_flags, ''
+
 # -*- encoding : utf-8 -*-
 default_environment["PATH"] = "/opt/ruby/bin:/usr/local/bin:/usr/bin:/bin"
 
 set :application, "pcc-web"
-set :repository,  "git@github.com:tka/pcc-web.git"
+set :repository,  "git://github.com/tka/pcc-web.git"
 set :deploy_to, "/home/apps/#{application}"
 
 set :branch, "master"
@@ -16,9 +21,9 @@ set :runner, "apps"
 set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
 
-role :web, "pcc-web.com"                          # Your HTTP server, Apache/etc
-role :app, "pcc-web.com"                         # This may be the same as your `Web` server
-role :db,  "pcc-web.com"   , :primary => true # This is where Rails migrations will run
+role :web, "106.186.18.95"                          # Your HTTP server, Apache/etc
+role :app, "106.186.18.95"                         # This may be the same as your `Web` server
+role :db,  "106.186.18.95"   , :primary => true # This is where Rails migrations will run
 
 set :deploy_env, "production"
 set :rails_env, "production"
@@ -42,7 +47,8 @@ namespace :my_tasks do
     
     symlink_hash = {
       "#{shared_path}/config/database.yml"   => "#{release_path}/config/database.yml",
-      "#{shared_path}/config/s3.yml"   => "#{release_path}/config/s3.yml",
+      "#{shared_path}/config/config.yml"   => "#{release_path}/config/config.yml",
+      "#{shared_path}/config/action_mailer.yml"   => "#{release_path}/config/action_mailer.yml",
       "#{shared_path}/uploads"              => "#{release_path}/public/uploads",
     }
 

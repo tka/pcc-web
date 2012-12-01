@@ -52,7 +52,7 @@ function position() {
 
 
 function show_d3(){
-	d3.json("view1.json", function(error, root) {
+	d3.json("/fae_json/view1.json", function(error, root) {
 	  var node = div.datum(root).selectAll(".node")
 	      .data(treemap.nodes)
 	    .enter().append("div")

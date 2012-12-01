@@ -7,7 +7,7 @@ gem 'rails', '3.2.9'
 
 gem 'mysql2'
 
-
+gem 'rvm-capistrano'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -65,10 +65,6 @@ group :development do
   gem "powder"
   gem "pry-nav"
   gem "pry-remote"
-end
-
-group :production do
-  gem "newrelic_rpm"
 end
 
 

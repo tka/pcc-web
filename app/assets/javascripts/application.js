@@ -3,7 +3,8 @@
 //= require jquery-ui
 //= require twitter/bootstrap/alert
 //= require bootstrap-datepicker.js
-//= require d3.v2.min
+//= require d3.v3
+//= require_tree ./d3view
 //= require_self
 
 $(function(){

@@ -127,7 +127,6 @@ GEM
     net-ssh (2.6.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.5.2.17)
     open_graph_helper (0.1.1)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
@@ -181,6 +180,8 @@ GEM
       rubinius-core-api
     rubinius-core-api (0.0.1)
     ruby-graphviz (1.0.8)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
     sass (3.2.3)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -234,7 +235,6 @@ DEPENDENCIES
   jquery-rails
   magic_encoding
   mysql2
-  newrelic_rpm
   open_graph_helper
   powder
   pry
@@ -245,6 +245,7 @@ DEPENDENCIES
   rails-erd
   rb-inotify
   rmagick
+  rvm-capistrano
   sass-rails (~> 3.2.0)
   seo_helper (~> 1.0)
   settingslogic
