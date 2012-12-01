@@ -1,0 +1,13 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/
+.sass-cache/
+*.DS_Store
+*.swp
+.env
+public/uploads
+vendor/bundler_gems
+config/database.yml
+config/config.yml
+config/action_mailer.yml
