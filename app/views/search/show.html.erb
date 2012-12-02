@@ -1,9 +1,11 @@
+<!--
 <%= simple_form_for SearchForm.new, :url => search_path do |f|%>
     <%= f.input :type,   :label => '類型', :as => "radio", :collection => ["招標機關", '投標廠商']%>
     <%= f.input :name,   :label => '名稱'%>
     <%= f.input :year,   :label => '年度', :input_html => {"data-toggle"=> "datepicker"}%>
     <%= f.submit%>
 <% end %>
+-->
 <div id="d3graph"></div>
 <% content_for :javascripts do %>
 <script>

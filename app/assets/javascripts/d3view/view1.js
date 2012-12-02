@@ -24,8 +24,8 @@ $.number_format = function(number, decimals, dec_point, thousands_sep) {
 }
 
 
-var margin = {top: 40, right: 10, bottom: 10, left: 10},
-    width = $(document).width() - margin.left - margin.right,
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
+    width = $(document).width() - margin.left - margin.right -40,
     height = 600 - margin.top - margin.bottom;
 
 var color = d3.scale.category20c();

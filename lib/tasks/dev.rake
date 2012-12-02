@@ -21,7 +21,8 @@ namespace :dev do
       procurement = entity.procurements.find_or_create_by_job_number({
         :job_number => procurement_data["標案案號"],
         :subject => procurement_data["標案名稱"],
-        :price => json["決標資料"]["總決標金額"].gsub(/[^\d]/,'').to_i
+        :price => json["決標資料"]["總決標金額"].gsub(/[^\d]/,'').to_i,
+        :finish_at => Date.parse(json["決標資料"]["決標日期"]) + 1911.years
       })
       json["投標廠商"]["投標廠商"].each do |t|
         tenderer = Tenderer.find_or_create_by_business_number({

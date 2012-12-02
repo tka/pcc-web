@@ -9,14 +9,14 @@
 
           <%= link_to(Setting.app_name, Setting.domain , :class => "brand" )%>
 
-          <%= render :partial => "common/search_form" %>
+          <%# render :partial => "common/search_form" %>
 
    
      
           <div class="nav-collapse">
       
               <%= render_list :class => "nav" do |li|
-              #  li << link_to("d3demo-1", "/pages/view1")
+                li << link_to("標案列表", procurements_path)
               end %>
               
               <%= render :partial => "common/user_nav"%>
