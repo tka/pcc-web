@@ -60,7 +60,8 @@ function show_d3(val_year,val_type,val_name){
 	      .attr("class", "node")
 	      .call(position)
 	      .style("background", function(d) { return d.children ? color(d.name) : null; })
-	      .html(function(d) { return d.children ? '<p>'+d.name+'</p>' : '<p style="position:absolute;bottom:0">'+d.name+'<br>'+$.number_format(d.size)+"</p>"; });
+	      .html(function(d) { return d.children ? '<p class="entity_name">'+d.name+'</p>' : '<p class="procurement"><span class="name">'+d.name+'</span><br><span class="price">'+$.number_format(d.size)+"</span></p>"; })
+
 	
 	});
 }

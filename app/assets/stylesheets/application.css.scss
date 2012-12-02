@@ -1,16 +1,26 @@
-//= require common
 //= require_self
-
+//= require common
 .node {
+  &:hover {
+    font-size: 16px;
+  }
   border: solid 1px white;
   font: 10px sans-serif;
   line-height: 12px;
   overflow: hidden;
   position: absolute;
-  text-indent: 2px;
+  .entity_name{
+    background: rgba(255,255,255, 0.3);
+    padding: 3px;
+    .node:hover > & {
+      visibility: visible;
+   }
+ }
+  .procurement{
+    font-size: 12px;
+    position: absolute;
+    bottom:0;
+    margin-bottom:0;
+    padding: 3px;
+  }
 }
-.view1_name{
-  font-size: 12px;
-	text-align: center;
-}
-
