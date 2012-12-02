@@ -29,10 +29,11 @@ namespace :dev do
           :business_number => t["廠商代碼"],
           :name => t["廠商名稱"]
         })
+        puts tenderer.id if t["是否得標"]== "是"  
         TenderInfo.create({
           :procurement_id => procurement.id,
           :tenderer_id => tenderer.id,
-          :winning => t["是否得標"] =~ /是/,
+          :winning => t["是否得標"]== "是",
           :price => t["決標金額"]&&t["決標金額"].gsub(/[^\d]/,'').to_i
         })
       end
