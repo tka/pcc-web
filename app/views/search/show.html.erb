@@ -9,10 +9,7 @@
 <script>
 
 $(function(){
-    $('form').submit(function(){
-        show_d3($('#year').val(),$('#type').val(),$('#name').val());
-        return false;
-    });
+        show_d3(<%=raw @data%>);
 });
 
 </script>

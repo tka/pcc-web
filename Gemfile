@@ -38,7 +38,7 @@ gem "high_voltage"
 gem "airbrake"
 
 gem 'yajl-ruby', :require => 'yajl/json_gem'
-
+gem 'jbuilder'
 group :assets do
   gem "compass-rails"
 end

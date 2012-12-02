@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121201075511) do
+ActiveRecord::Schema.define(:version => 20121201091054) do
 
   create_table "procurements", :force => true do |t|
     t.integer  "procuring_entity_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20121201075511) do
     t.integer  "price"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.datetime "finish_at"
   end
 
   create_table "procuring_entities", :force => true do |t|

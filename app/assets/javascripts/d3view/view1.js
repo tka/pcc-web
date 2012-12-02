@@ -25,10 +25,10 @@ $.number_format = function(number, decimals, dec_point, thousands_sep) {
 
 
 var margin = {top: 40, right: 10, bottom: 10, left: 10},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = $(document).width() - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
 
-var color = d3.scale.category10();
+var color = d3.scale.category20c();
 
 var treemap = d3.layout.treemap()
     .size([width, height])
@@ -53,14 +53,14 @@ function show_d3(val_year,val_type,val_name){
     .style("top", margin.top + "px");
 
 
-	d3.json("/json/"+val_year+"/"+val_type+"/"+val_name, function(error, root) {
+	d3.json("/search.json", function(error, root) {
 	  var node = div.datum(root).selectAll(".node")
 	      .data(treemap.nodes)
           .enter().append("div")
 	      .attr("class", "node")
 	      .call(position)
 	      .style("background", function(d) { return d.children ? color(d.name) : null; })
-	      .html(function(d) { return d.children ? null : '<h3 class="view1_name">'+d.name+'<h3><h1 class="view1_size">'+$.number_format(d.size)+"</h1>"; });
+	      .html(function(d) { return d.children ? '<p>'+d.name+'</p>' : '<p style="position:absolute;bottom:0">'+d.name+'<br>'+$.number_format(d.size)+"</p>"; });
 	
 	});
 }
