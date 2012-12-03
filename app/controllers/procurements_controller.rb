@@ -1,5 +1,5 @@
 class ProcurementsController < ApplicationController
   def index
-    @procurements = Procurement.paginate(:page => params[:page])
+    @procurements = Procurement.includes(:procuring_entity).paginate(:page => params[:page])
   end
 end

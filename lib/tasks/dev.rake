@@ -13,9 +13,13 @@ namespace :dev do
     puts args
     Dir.glob(File.join(args[:source_folder], '*')) do |source_json|
       json=JSON.load(open(source_json))
+      entity_name = json["機關資料"]["機關名稱"]
+      entity_subname = json["機關資料"]["單位名稱"]
+      entity_name = entity_name == entity_subname ? entity_name : "#{entity_name}-#{entity_subname}"
+      puts (entity_name == entity_subname).inspect
       entity = ProcuringEntity.find_or_create_by_entity_code({
         :entity_code => json["機關資料"]["機關代碼"], 
-        :name => json["機關資料"]["機關名稱"]+"-"+ json["機關資料"]["單位名稱"]
+        :name => entity_name
       })
       procurement_data = json["採購資料"] || json["已公告資料"]
       procurement = entity.procurements.find_or_create_by_job_number({
@@ -29,7 +33,6 @@ namespace :dev do
           :business_number => t["廠商代碼"],
           :name => t["廠商名稱"]
         })
-        puts tenderer.id if t["是否得標"]== "是"  
         TenderInfo.create({
           :procurement_id => procurement.id,
           :tenderer_id => tenderer.id,
