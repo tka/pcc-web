@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121201091054) do
+ActiveRecord::Schema.define(:version => 20121206131211) do
 
   create_table "procurements", :force => true do |t|
     t.integer  "procuring_entity_id"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(:version => 20121201091054) do
     t.datetime "updated_at",          :null => false
     t.datetime "finish_at"
   end
+
+  add_index "procurements", ["finish_at"], :name => "index_procurements_on_finish_at"
 
   create_table "procuring_entities", :force => true do |t|
     t.string   "entity_code"
