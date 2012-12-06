@@ -3,15 +3,16 @@ class SearchController < ApplicationController
   respond_to :json, :html
   caches_action :result
   def show
+    @search_string = params[:search] || '網站'
     respond_with do |f|
       f.html
     end
   end
 
   def result
-    search_string = params[:search] || '網站'
+    search_string = params[:search] 
     @procuring_entities = Procurement.where(["subject like ?", "%#{search_string}%"]).to_a.group_by(&:procuring_entity)
-    cache_key= "search-#{params[:search]}"
+    cache_key= "search-#{search_string}"
     json= Rails.cache.read(cache_key)
     unless json
       json = render_to_string

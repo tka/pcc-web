@@ -1,4 +1,4 @@
-<%= simple_form_for SearchForm.new(:name => '網站'), :url => search_path do |f|%>
+<%= simple_form_for SearchForm.new(:name => @search_string), :url => search_path do |f|%>
     <%= f.input :name,   :label => '名稱'%>
     <%= f.submit%>
 <% end %>
