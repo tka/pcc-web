@@ -2,7 +2,7 @@
 class SearchController < ApplicationController
   respond_to :json, :html
   def show
-    @search_string = params[:search] || '網站'
+    @search_string = (params[:search_form] && params[:search_form][:name]) || params[:search] || '網站'
     respond_with do |f|
       f.html
     end

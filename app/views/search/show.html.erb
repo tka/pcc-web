@@ -1,18 +1,12 @@
-<%= simple_form_for SearchForm.new(:name => @search_string), :url => search_path do |f|%>
+<%= simple_form_for SearchForm.new(:name => @search_string), :url => '', :method => :get do |f|%>
     <%= f.input :name,   :label => '名稱'%>
-    <%= f.submit%>
+    <%= f.submit "submit"%>
 <% end %>
 <div id="d3graph"></div>
 
 <% content_for :javascripts do %>
     <script>
-        $(function(){
-            $('form').submit(function(){
-                show_d3($('input[name="search_form[name]"]').val());
-                return false;
-            }).trigger('submit')
-
-        });
+        show_d3($('input[name="search_form[name]"]').val());
     </script>
 <% end %>
 
