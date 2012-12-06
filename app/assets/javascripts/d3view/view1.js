@@ -1,3 +1,5 @@
+
+function show_d3(search_string){
 $.number_format = function(number, decimals, dec_point, thousands_sep) {
 		// Formats a number with grouped thousands  
 		// http://phpjs.org/functions/number_format
@@ -43,8 +45,7 @@ function position() {
       .style("height", function(d) { return Math.max(0, d.dy - 1) + "px"; });
 }
 
-
-function show_d3(val_year,val_type,val_name){
+    $('#d3graph').empty();
     var div = d3.select("#d3graph").append("div")
     .style("position", "relative")
     .style("width", (width + margin.left + margin.right) + "px")
@@ -53,7 +54,7 @@ function show_d3(val_year,val_type,val_name){
     .style("top", margin.top + "px");
 
 
-	d3.json("/search.json", function(error, root) {
+	d3.json("/search/result.json?search="+encodeURIComponent(search_string), function(error, root) {
 	  var node = div.datum(root).selectAll(".node")
 	      .data(treemap.nodes)
           .enter().append("div")

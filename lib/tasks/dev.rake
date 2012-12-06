@@ -13,6 +13,7 @@ namespace :dev do
     puts args
     Dir.glob(File.join(args[:source_folder], '*')) do |source_json|
       json=JSON.load(open(source_json))
+      next unless json["機關資料"]
       entity_name = json["機關資料"]["機關名稱"]
       entity_subname = json["機關資料"]["單位名稱"]
       entity_name = entity_name == entity_subname ? entity_name : "#{entity_name}-#{entity_subname}"
@@ -25,7 +26,7 @@ namespace :dev do
       procurement = entity.procurements.find_or_create_by_job_number({
         :job_number => procurement_data["標案案號"],
         :subject => procurement_data["標案名稱"],
-        :price => json["決標資料"]["總決標金額"].gsub(/[^\d]/,'').to_i,
+        :price => json["決標資料"]["總決標金額"] ? json["決標資料"]["總決標金額"].gsub(/[^\d]/,'').to_i  : 0, 
         :finish_at => Date.parse(json["決標資料"]["決標日期"]) + 1911.years
       })
       json["投標廠商"]["投標廠商"].each do |t|
