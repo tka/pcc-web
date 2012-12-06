@@ -11,9 +11,13 @@ class SearchController < ApplicationController
   def result
     search_string = params[:search] || '網站'
     @procuring_entities = Procurement.where(["subject like ?", "%#{search_string}%"]).to_a.group_by(&:procuring_entity)
-    respond_with do |f|
-      f.json
+    cache_key= "search-#{params[:search]}"
+    json= Rails.cache.read(cache_key)
+    unless json
+      json = render_to_string
+      Rails.cache.write(cache_key, json)
     end
+    render :text => json, content_type => "text/json"
   end
 
 end
