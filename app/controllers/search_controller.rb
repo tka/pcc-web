@@ -1,7 +1,6 @@
 # encoding: utf-8
 class SearchController < ApplicationController
   respond_to :json, :html
-  caches_action :result
   def show
     @search_string = params[:search] || '網站'
     respond_with do |f|
