@@ -1,0 +1,17 @@
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>統編</th>
+            <th>廠商名稱</th>
+            <th>得標率</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%= content_tag_for(:tr, @tenderers) do |tenderer|%>
+            <td><%= tenderer.business_number%></td>
+            <td><%= link_to tenderer.name, "http://www.google.com/#q=#{URI.escape(tenderer.name)}"%></td>
+            <td><%=sprintf "%.2f", ((g=tenderer.tender_infos.where(:winning => true).count) / (a=tenderer.tender_infos.count).to_f)*100%>%(<%="#{g}/#{a}"%>)</td>
+        <% end %>
+    </tbody>
+</table>
+<%= will_paginate @tenderers %>

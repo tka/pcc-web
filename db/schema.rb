@@ -18,12 +18,14 @@ ActiveRecord::Schema.define(:version => 20121206131211) do
     t.string   "job_number"
     t.string   "subject"
     t.integer  "price"
+    t.text     "url"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.datetime "finish_at"
   end
 
   add_index "procurements", ["finish_at"], :name => "index_procurements_on_finish_at"
+  add_index "procurements", ["procuring_entity_id"], :name => "index_procurements_on_procuring_entity_id"
 
   create_table "procuring_entities", :force => true do |t|
     t.string   "entity_code"
@@ -40,6 +42,9 @@ ActiveRecord::Schema.define(:version => 20121206131211) do
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
   end
+
+  add_index "tender_infos", ["procurement_id"], :name => "index_tender_infos_on_procurement_id"
+  add_index "tender_infos", ["tenderer_id"], :name => "index_tender_infos_on_tenderer_id"
 
   create_table "tenderers", :force => true do |t|
     t.string   "business_number"

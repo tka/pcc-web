@@ -11,37 +11,71 @@ namespace :dev do
   desc "import"
   task :import, [:source_folder] => [:environment] do |t, args|
     puts args
-    Dir.glob(File.join(args[:source_folder], '*')) do |source_json|
-      json=JSON.load(open(source_json))
-      next unless json["機關資料"]
-      entity_name = json["機關資料"]["機關名稱"]
-      entity_subname = json["機關資料"]["單位名稱"]
-      entity_name = entity_name == entity_subname ? entity_name : "#{entity_name}-#{entity_subname}"
-      puts (entity_name == entity_subname).inspect
-      entity = ProcuringEntity.find_or_create_by_entity_code({
-        :entity_code => json["機關資料"]["機關代碼"], 
-        :name => entity_name
-      })
-      procurement_data = json["採購資料"] || json["已公告資料"]
-      procurement = entity.procurements.find_or_create_by_job_number({
-        :job_number => procurement_data["標案案號"],
-        :subject => procurement_data["標案名稱"],
-        :price => json["決標資料"]["總決標金額"] ? json["決標資料"]["總決標金額"].gsub(/[^\d]/,'').to_i  : 0, 
-        :finish_at => Date.parse(json["決標資料"]["決標日期"]) + 1911.years
-      })
-      json["投標廠商"]["投標廠商"].each do |t|
-        tenderer = Tenderer.find_or_create_by_business_number({
-          :business_number => t["廠商代碼"],
-          :name => t["廠商名稱"]
-        })
-        TenderInfo.create({
-          :procurement_id => procurement.id,
-          :tenderer_id => tenderer.id,
-          :winning => t["是否得標"]== "是",
-          :price => t["決標金額"]&&t["決標金額"].gsub(/[^\d]/,'').to_i
-        })
-      end
+    Dir.glob(File.join(args[:source_folder])) do |source_json|
+      puts source_json
+      ActiveRecord::Base.transaction do
+        json=JSON.load(open(source_json))
 
+        if json["投標廠商"]["投標廠商"].is_a? String
+          puts "標案資料不相容, 請檢查標案資料"
+          next
+        end
+        if !json["機關資料"]
+          puts "標案資料不相容, 請檢查標案資料"
+          next
+        end
+
+        entity_name = json["機關資料"]["機關名稱"]
+        entity_subname = json["機關資料"]["單位名稱"]
+        entity_name = entity_name == entity_subname ? entity_name : "#{entity_name}-#{entity_subname}"
+        entity = ProcuringEntity.find_or_create_by_entity_code({
+          :entity_code => json["機關資料"]["機關代碼"], 
+          :name => entity_name
+        })
+        procurement_data = json["採購資料"] || json["已公告資料"]
+        next if entity.procurements.where(:job_number => procurement_data["標案案號"]).exists?
+        finish_at = json["決標資料"]["決標日期"].split(/\//)
+        procurement = entity.procurements.create({
+          :job_number => procurement_data["標案案號"],
+          :subject => procurement_data["標案名稱"],
+          :price => json["決標資料"]["總決標金額"] ? json["決標資料"]["總決標金額"].gsub(/[^\d]/,'').to_i  : 0, 
+          :finish_at => Date.new(finish_at[0].to_i()+1911, finish_at[1].to_i, finish_at[2].to_i),
+          :url => json["url"]
+        })
+        tenderers =[]
+        json["投標廠商"]["投標廠商"].each do |index, t|
+          tenderer = Tenderer.find_or_create_by_business_number_and_name({
+            :business_number => t["廠商代碼"],
+            :name => t["廠商名稱"]
+          })
+          tenderers << tenderer
+        end
+
+        json["決標品項"]["品項"].each do |index, item|
+          item["得標廠商"].each do |i, data|
+            tenderer = tenderers.find{|x| x.name == data["得標廠商"]}
+            puts tenderers.inspect
+            puts data["得標廠商"]
+            TenderInfo.create({
+              :procurement_id => procurement.id,
+              :tenderer_id => tenderer.id,
+              :winning => true,
+              :price => data["決標金額"] && data["決標金額"].gsub(/[^\d]/,'').to_i
+            })
+          end 
+          if item["未得標廠商"]
+            item["未得標廠商"].each do |i, data|
+              tenderer = tenderers.find{|x| x.name == data["未得標廠商"]}
+              TenderInfo.create({
+                :procurement_id => procurement.id,
+                :tenderer_id => tenderer.id,
+                :winning => false,
+                :price => 0
+              })
+            end 
+          end 
+        end
+      end
     end
   end
 end

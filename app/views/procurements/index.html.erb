@@ -10,7 +10,7 @@
     <tbody>
         <%= content_tag_for(:tr, @procurements) do |procurement|%>
             <td><%= procurement.entity_name%></td>
-            <td><%= procurement.subject%></td>
+            <td><%= link_to procurement.subject, procurement.url%></td>
             <td><%= number_to_currency procurement.price%></td>
             <td><%= procurement.finish_at.strftime('%Y/%m/%d')%></td>
         <% end %>

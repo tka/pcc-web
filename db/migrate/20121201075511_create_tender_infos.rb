@@ -7,5 +7,7 @@ class CreateTenderInfos < ActiveRecord::Migration
       t.boolean :winning, :default => false
       t.timestamps
     end
+    add_index :tender_infos, :procurement_id
+    add_index :tender_infos, :tenderer_id
   end
 end
