@@ -11,8 +11,9 @@ namespace :dev do
   desc "import"
   task :import, [:source_folder] => [:environment] do |t, args|
     puts args
-    Dir.glob(File.join(args[:source_folder])) do |source_json|
-      puts source_json
+    all_files = Dir.glob(File.join(args[:source_folder]))
+    all_files.each_with_index do |source_json, index|
+      puts "#{index}/#{all_files.count} #{source_json}"
       ActiveRecord::Base.transaction do
         json=JSON.load(open(source_json))
 
@@ -52,26 +53,36 @@ namespace :dev do
         end
 
         json["決標品項"]["品項"].each do |index, item|
-          item["得標廠商"].each do |i, data|
-            tenderer = tenderers.find{|x| x.name == data["得標廠商"]}
-            puts tenderers.inspect
-            puts data["得標廠商"]
-            TenderInfo.create({
-              :procurement_id => procurement.id,
-              :tenderer_id => tenderer.id,
-              :winning => true,
-              :price => data["決標金額"] && data["決標金額"].gsub(/[^\d]/,'').to_i
-            })
+          if item["得標廠商"]
+            item["得標廠商"].each do |i, data|
+              tenderer = tenderers.find{|x| x.name == data["得標廠商"]}
+              begin
+                TenderInfo.create({
+                  :procurement_id => procurement.id,
+                  :tenderer_id => tenderer.id,
+                  :winning => true,
+                  :price => data["決標金額"] && data["決標金額"].gsub(/[^\d]/,'').to_i
+                })
+              rescue
+                puts tenderers.inspect
+                puts data["得標廠商"]
+              end
+            end 
           end 
           if item["未得標廠商"]
             item["未得標廠商"].each do |i, data|
               tenderer = tenderers.find{|x| x.name == data["未得標廠商"]}
-              TenderInfo.create({
-                :procurement_id => procurement.id,
-                :tenderer_id => tenderer.id,
-                :winning => false,
-                :price => 0
-              })
+              begin
+                TenderInfo.create({
+                  :procurement_id => procurement.id,
+                  :tenderer_id => tenderer.id,
+                  :winning => false,
+                  :price => 0
+                })
+              rescue
+                puts tenderers.inspect
+                puts data["未得標廠商"]
+              end
             end 
           end 
         end
