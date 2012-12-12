@@ -1,0 +1,14 @@
+<h2><%= @procuring_entity.name%></h2>
+<h3>標案</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>標案名稱</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%= content_tag_for(:tr, @procurements) do |procurement|%>
+            <td><%= link_to procurement.subject, procurement.url%></td>
+        <% end %>
+    </tbody>
+</table>

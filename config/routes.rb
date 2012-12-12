@@ -4,6 +4,7 @@ PccWeb::Application.routes.draw do
   end
   resources :procurements
   resources :tenderers
+  resources :procuring_entities
   match '/json/:year/:type/:name' => redirect('/fake_json/view1.json')
   root :to => 'search#show'
 end

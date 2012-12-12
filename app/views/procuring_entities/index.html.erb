@@ -1,0 +1,13 @@
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>名稱</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%= content_tag_for(:tr, @procuring_entities) do |pe|%>
+            <td><%= link_to pe.name, procuring_entity_path(pe)%></td>
+        <% end %>
+    </tbody>
+</table>
+<%= will_paginate @procuring_entities %>

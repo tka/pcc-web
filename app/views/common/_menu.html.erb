@@ -17,6 +17,7 @@
       
               <%= render_list :class => "nav" do |li|
                 li << link_to("標案列表", procurements_path)
+                li << link_to("發包單位", procuring_entities_path)
                 li << link_to("投標廠商", tenderers_path)
               end %>
               
