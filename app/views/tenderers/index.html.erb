@@ -9,7 +9,7 @@
     <tbody>
         <%= content_tag_for(:tr, @tenderers) do |tenderer|%>
             <td><%= tenderer.business_number%></td>
-            <td><%= link_to tenderer.name, "http://www.google.com/#q=#{URI.escape(tenderer.name)}"%></td>
+            <td><%=link_to tenderer.name, tenderer_path(tenderer)%> </td>
             <td><a href="<%=tenderer_path(tenderer)%>"><%=sprintf "%.2f", ((g=tenderer.tender_infos.where(:winning => true).count) / (a=tenderer.tender_infos.count).to_f)*100%>%(<%="#{g}/#{a}"%>)</a></td>
         <% end %>
     </tbody>
