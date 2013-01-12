@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121212141239) do
+ActiveRecord::Schema.define(:version => 20121212170942) do
 
   create_table "procurements", :force => true do |t|
     t.integer  "procuring_entity_id"
@@ -49,11 +49,15 @@ ActiveRecord::Schema.define(:version => 20121212141239) do
   create_table "tenderers", :force => true do |t|
     t.string   "business_number"
     t.string   "name"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "tender_info_count"
+    t.integer  "winning_tender_info_count"
   end
 
   add_index "tenderers", ["name"], :name => "index_tenderers_on_name", :length => {"name"=>5}
+  add_index "tenderers", ["tender_info_count"], :name => "index_tenderers_on_tender_info_count"
+  add_index "tenderers", ["winning_tender_info_count"], :name => "index_tenderers_on_winning_tender_info_count"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
