@@ -1,6 +1,7 @@
 class ProcuringEntitiesController < ApplicationController
   def index
-    @procuring_entities = ProcuringEntity.order(:entity_code).paginate(:page => params[:page])
+    @q = ProcuringEntity.search(params[:q])
+    @procuring_entities = @q.result.order(:entity_code).paginate(:page => params[:page])
   end
 
   def show

@@ -1,3 +1,8 @@
+<%= search_form_for @q, :class => "form-search" do |f| %>
+    <%= f.label :name_cont, "搜尋:"%>
+    <%= f.text_field :name_cont, :class => "input-medium search-query" %>
+    <%= f.submit :class => "btn"%>
+<% end %>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>

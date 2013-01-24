@@ -1,3 +1,15 @@
+<%= search_form_for @q, :class => "form-search" do |f| %>
+    <%= f.label :name_cont, "名稱:", :class=>"control-label"%>
+    <%= f.text_field :name_cont, :class => "input-medium" %>
+
+    <%= f.label :tender_infos_count, "投標數:", :class=>"control-label"%>
+    <%= f.text_field :tender_infos_count_gteq, :class => "input-mini" %> ~
+    <%= f.text_field :tender_infos_count_lteq, :class => "input-mini" %>
+    <%= f.label :tender_infos_count, "得標數:", :class=>"control-label"%>
+    <%= f.text_field :winning_tender_infos_count_gteq, :class => "input-mini" %> ~
+    <%= f.text_field :winning_tender_infos_count_lteq, :class => "input-mini" %>
+    <%= f.submit :class => "btn"%>
+<% end %>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
