@@ -101,5 +101,6 @@ namespace :dev do
       fork{p.call}
     end
     Process.waitall
+    Tenderer.find_each{|t| t.update_counters!}
   end
 end
