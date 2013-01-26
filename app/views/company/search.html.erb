@@ -1,0 +1,8 @@
+<%= form_tag "/company/search", :class => "form-search", :method => "get" do |f| %>
+    <%= label_tag :q, "搜尋:" %>
+    <%= text_field_tag :q,params[:q],  :class => "input-medium search-query" %>
+    <%= submit_tag "Search", :class => "btn"%>
+<% end %>
+<pre>
+<%= JSON.pretty_generate(JSON.parse(@json)) %>
+</pre>
