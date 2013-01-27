@@ -22,7 +22,7 @@ class ProcurementsController < ApplicationController
     request.body = @query_string
     
     respone = http.request(request)
-    @json = JSON.load(respone.body)["hits"]["hits"].first["_source"]
+    @json = JSON.load(respone.body)["hits"]["hits"].first["_source"] if JSON.load(respone.body)["hits"]["hits"].first
     respond_to do |format|
       format.html 
       format.json { send_data @json, :type => "text/json", :disposition => 'inline' }
