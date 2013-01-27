@@ -1,6 +1,7 @@
-<%= form_tag "/procurements/complex_search", :class => "form-search", :method => "get" do |f| %>
+<%= form_tag "/procurements/complex_search", :method => "get" do |f| %>
     <%= label_tag :q, "搜尋:" %>
-    <%= text_field_tag :q,params[:q],  :class => "input-medium search-query" %>
+    <%= text_area_tag :q, @query_string%>
+    <br>
     <%= submit_tag "Search", :class => "btn"%>
 <% end %>
 
