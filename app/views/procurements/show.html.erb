@@ -1,0 +1,6 @@
+
+<h2><%= @procurement.subject%></h2>
+<%= link_to "原始連結", @procurement.url %>
+<pre>
+<%= JSON.pretty_generate(@json) %>
+</pre>
