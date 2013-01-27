@@ -10,7 +10,7 @@
     <tbody>
         <%= content_tag_for(:tr, @winning_tender_infos) do |t|%>
             <td><%= t.procurement.procuring_entity.name%></td>
-            <td><%= link_to t.procurement.subject, t.procurement.url%></td>
+            <td><%= link_to t.procurement.subject, procurement_path(procurement)%></td>
         <% end %>
     </tbody>
 </table>
@@ -25,7 +25,7 @@
     <tbody>
         <%= content_tag_for(:tr, @lose_tender_infos) do |t|%>
             <td><%= t.procurement.procuring_entity.name%></td>
-            <td><%= link_to t.procurement.subject, t.procurement.url%></td>
+            <td><%= link_to t.procurement.subject, procurement_path(procurement)%></td>
         <% end %>
     </tbody>
 </table>
