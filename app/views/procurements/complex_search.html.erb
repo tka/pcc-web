@@ -1,14 +1,9 @@
 <%= form_tag "/procurements/complex_search", :method => "get" do |f| %>
     <%= label_tag :q, "搜尋:" %>
-    <%= text_area_tag :q, @query_string%>
+    <%= text_area_tag :q, JSON.pretty_generate(JSON.parse(@query_string)), :style => "width:400px;height:300px"%>
     <br>
     <%= submit_tag "Search", :class => "btn"%>
 <% end %>
-
-<h2>搜尋內容</h2>
-<pre>
-<%= JSON.pretty_generate(JSON.parse(@query_string)) %>
-</pre>
 
 <h2>結果</h2>
 <pre>
