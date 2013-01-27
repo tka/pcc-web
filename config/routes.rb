@@ -2,7 +2,9 @@ PccWeb::Application.routes.draw do
   resource  :search, :controller => :search do
     get :result
   end
+  match '/procurements/complex_search' => 'procurements#complex_search'
   resources :procurements
+
   resources :tenderers
   resources :procuring_entities
 
