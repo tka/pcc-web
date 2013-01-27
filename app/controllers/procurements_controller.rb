@@ -39,19 +39,13 @@ class ProcurementsController < ApplicationController
       "bool": {
       "must": [
         {
-      "query_string": {
-      "default_field": "廠商名稱",
-    "query": "台灣"
-    }
-    }
-    ]
-    }
-    },
-    "from": 0,
-    "size": 50,
-    "sort": [ ],
-    "facets": { }
-    }'
+            "query_string": {
+              "fields": [ "投標廠商.投標廠商.廠商名稱"  ],
+              "query": "中華電信"
+            }
+        }
+      ]
+    }}}'
     request.body = @query_string
     
     respone = http.request(request)
