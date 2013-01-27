@@ -4,11 +4,13 @@ class CompanyController < ApplicationController
     uri     = URI("http://localhost:9200/g0v/company/_search")
     http    = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Post.new(uri.request_uri)
-    request.body = params[:query]
+    @query_string =  params[:query_string] || "{}"
+    request.body = @query_string
+    
     respone = http.request(request)
     @json = respone.body
     respond_to do |format|
-      format.html 
+      format.html { render :search }
       format.json { send_data @json, :type => "text/json", :disposition => 'inline' }
     end
   end
@@ -40,6 +42,7 @@ class CompanyController < ApplicationController
 }
 _EOL_
     respone = http.request(request)
+    @query_string = request.body
     @json = respone.body
     respond_to do |format|
       format.html 

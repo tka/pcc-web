@@ -3,6 +3,13 @@
     <%= text_field_tag :q,params[:q],  :class => "input-medium search-query" %>
     <%= submit_tag "Search", :class => "btn"%>
 <% end %>
+
+<h2>搜尋內容</h2>
+<pre>
+<%= JSON.pretty_generate(JSON.parse(@query_string)) %>
+</pre>
+
+<h2>結果</h2>
 <pre>
 <%= JSON.pretty_generate(JSON.parse(@json)) %>
 </pre>
