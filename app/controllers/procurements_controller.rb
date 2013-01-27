@@ -8,7 +8,7 @@ class ProcurementsController < ApplicationController
     uri     = URI("http://localhost:9200/g0v/procurement/_search")
     http    = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Post.new(uri.request_uri)
-    @query_string =  params[:query_string] || '{
+    @query_string =  params[:q] || '{
     "query": {
       "bool": {
       "must": [
