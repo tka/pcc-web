@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(:version => 20130113040758) do
     t.integer  "winning_tender_infos_count"
   end
 
-  add_index "tenderers", ["name"], :name => "index_tenderers_on_name", :length => {"name"=>5}
+  add_index "tenderers", ["name"], :name => "index_tenderers_on_name"
   add_index "tenderers", ["tender_infos_count"], :name => "index_tenderers_on_tender_info_count"
   add_index "tenderers", ["winning_tender_infos_count"], :name => "index_tenderers_on_winning_tender_info_count"
 
