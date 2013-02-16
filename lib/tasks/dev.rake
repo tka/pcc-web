@@ -44,12 +44,11 @@ namespace :dev do
             })
             procurement_data = json["採購資料"] || json["已公告資料"]
             next if entity.procurements.where(:job_number => procurement_data["標案案號"]).exists?
-            finish_at = json["決標資料"]["決標日期"].split(/\//)
             procurement = entity.procurements.create({
               :job_number => procurement_data["標案案號"],
               :subject => procurement_data["標案名稱"],
               :price => json["決標資料"]["總決標金額"].to_i, 
-              :finish_at => Date.new(finish_at[0].to_i()+1911, finish_at[1].to_i, finish_at[2].to_i),
+              :finish_at => json["決標資料"]["決標日期"],
               :url => json["url"]
             })
             tenderers =[]
