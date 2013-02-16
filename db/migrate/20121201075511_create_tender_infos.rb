@@ -3,7 +3,7 @@ class CreateTenderInfos < ActiveRecord::Migration
     create_table :tender_infos do |t|
       t.references :procurement
       t.references :tenderer
-      t.integer :price
+      t.integer :price, :limit => 8
       t.boolean :winning, :default => false
       t.timestamps
     end

@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(:version => 20130113040758) do
     t.integer  "procuring_entity_id"
     t.string   "job_number"
     t.string   "subject"
-    t.integer  "price"
+    t.integer  "price",               :limit => 8
     t.text     "url"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.datetime "finish_at"
   end
 
@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(:version => 20130113040758) do
   create_table "tender_infos", :force => true do |t|
     t.integer  "procurement_id"
     t.integer  "tenderer_id"
-    t.integer  "price"
-    t.boolean  "winning",        :default => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.integer  "price",          :limit => 8
+    t.boolean  "winning",                     :default => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
   end
 
   add_index "tender_infos", ["procurement_id"], :name => "index_tender_infos_on_procurement_id"

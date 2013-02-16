@@ -4,7 +4,7 @@ class CreateProcurements < ActiveRecord::Migration
       t.integer :procuring_entity_id
       t.string  :job_number
       t.string  :subject
-      t.integer :price
+      t.integer :price, :limit => 8
       t.text    :url
       t.timestamps
     end
