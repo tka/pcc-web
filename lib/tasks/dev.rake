@@ -14,7 +14,7 @@ namespace :dev do
     all_files = Dir.glob(File.join(args[:source_folder]))
     puts all_files.length
     puts args[:source_json]
-    #ActiveRecord::Base.connection.disconnect! 
+    ActiveRecord::Base.connection.disconnect! 
     procs = [] 
     4.times do |x|
       length = (all_files.length/4).ceil
@@ -102,6 +102,7 @@ namespace :dev do
       fork{p.call}
     end
     Process.waitall
+    ActiveRecord::Base.establish_connection
     Tenderer.find_each{|t| t.update_counters!}
   end
 end
