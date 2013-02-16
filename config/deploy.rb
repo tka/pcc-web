@@ -1,5 +1,6 @@
 require "rvm/capistrano"    
 set :rvm_ruby_string, 'ruby-1.9.3'        # Or whatever env you want it to run in.
+set :rvm_type, :system
 require "bundler/capistrano"
 set :bundle_flags, ''
 
@@ -29,7 +30,7 @@ set :deploy_env, "production"
 set :rails_env, "production"
 set :scm_verbose, true
 set :use_sudo, false
-
+set :pid_file, "#{shared_path}/pids/unicorn.pid"
 
 namespace :deploy do
 
@@ -39,7 +40,7 @@ namespace :deploy do
 
   desc "Zero-downtime restart of Unicorn"
   task :restart, :roles => [:web], :except => { :no_release => true } do
-    run "if [ -f /tmp/#{application}_unicorn.pid ] ; then kill -s HUP `cat /tmp/#{application}_unicorn.pid`; fi"
+    run "if [ -f #{pid_file} ] ; then kill -s HUP `cat #{pid_file}`; fi"
   end 
 
   desc "Start unicorn"
@@ -49,7 +50,7 @@ namespace :deploy do
 
   desc "Stop unicorn"
   task :stop, :roles => [:web], :except => { :no_release => true } do
-    run "if [ -f /tmp/#{application}_unicorn.pid ] ; then  kill -s QUIT `cat /tmp/#{application}_unicorn.pid`; fi"
+    run "if [ -f #{pid_file} ] ; then  kill -s QUIT `cat #{pid_file}`; fi"
   end  
 
 end
