@@ -21,9 +21,9 @@ set :runner, "apps"
 set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
 
-role :web, "106.186.18.95"                          # Your HTTP server, Apache/etc
-role :app, "106.186.18.95"                         # This may be the same as your `Web` server
-role :db,  "106.186.18.95"   , :primary => true # This is where Rails migrations will run
+role :web, "g0v-pcc.tka.lu"                          # Your HTTP server, Apache/etc
+role :app, "g0v-pcc.tka.lu"                         # This may be the same as your `Web` server
+role :db,  "g0v-pcc.tka.lu"   , :primary => true # This is where Rails migrations will run
 
 set :deploy_env, "production"
 set :rails_env, "production"
