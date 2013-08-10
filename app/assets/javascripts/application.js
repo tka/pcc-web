@@ -1,6 +1,5 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require twitter/bootstrap/alert
 //= require bootstrap-datepicker.js
 //= require d3.v3
