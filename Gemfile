@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '4.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -10,8 +10,8 @@ gem 'rvm-capistrano'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.0'
-  gem 'coffee-rails', '~> 3.2.0'
+  gem 'sass-rails',   '~> 4.0.0'
+  gem 'coffee-rails', '~> 4.0.0'
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -31,8 +31,8 @@ gem "settingslogic"
 
 gem "anjlab-bootstrap-rails", ">= 2.1", :require => "bootstrap-rails"
 gem "bootstrap_helper", ">= 2.1.2"
-gem "simple_form", "2.0.3"
-gem "will_paginate", "3.0.3"
+gem "simple_form", "3.0.0.rc"
+gem "will_paginate", "3.0.4"
 
 gem "high_voltage"
 
@@ -47,6 +47,7 @@ end
 group :test do
   gem "spork"
 end
+
 
 group :development do 
   gem "capistrano"
