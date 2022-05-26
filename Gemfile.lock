@@ -227,7 +227,7 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     will_paginate (3.0.4)
-    yajl-ruby (1.1.0)
+    yajl-ruby (1.4.3)
 
 PLATFORMS
   ruby
